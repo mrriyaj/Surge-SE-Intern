@@ -14,7 +14,7 @@ import {
   @Controller('users')
   export class UserController {
     constructor(private readonly service: UserService) {}
-  
+
     @Get()
     async index() {
       return await this.service.findAll();
@@ -27,7 +27,7 @@ import {
   
     @Post()
     async create(@Body() createUserDto: CreateUserDto) {
-      return await this.service.create(createUserDto);
+      return await this.service.createDetails(createUserDto);
     }
   
     @Put(':id')
