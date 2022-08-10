@@ -19,6 +19,11 @@ import {
     async index() {
       return await this.service.findAll();
     }
+
+    @Get(':email')
+    async findOne(@Param('email') email: string){
+      return await this.service.findByEmail(email);
+    }
   
     @Get(':id')
     async find(@Param('id') id: string) {

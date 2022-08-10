@@ -70,7 +70,10 @@ export class AuthService {
         if(!user) return null;
 
         const jwt = await this.jwtService.signAsync({ user });
-        return { token: jwt};
+        
+        var objJson = JSON.parse(JSON.stringify({ status: "ok", data: jwt }));
+        
+        return objJson;
 
     }
 }
