@@ -36,7 +36,7 @@ check npm version
 ```
 
 If not there please install before clone
-## Run Locally
+## Run Locally (Recommended)
 
 Clone the project
 
@@ -84,3 +84,45 @@ Start the server
   npm start
 ```
 ## Run Dockers
+
+![App Screenshot](https://miro.medium.com/max/1400/1*Wz0qYxhDbGWSGUalcKWuGg.jpeg)
+
+
+
+Clone the project
+
+```bash
+  git clone https://github.com/riyajkafar/Surge-SE-Intern.git
+```
+
+Go to the project directory
+
+```bash
+  cd Surge-SE-Intern
+```
+
+build Dockers
+
+```bash
+  docker-compose up --build
+```
+
+## Live Application
+
+
+Application will be live on http://localhost:3000/
+
+#**Admin credentials**
+
+**email** : admin@gmail.com
+
+**password** : AdminDamo
+
+seed file to add admin to the database directly.
+
+#**Student credentials**
+
+Create With your email and get account with temporary password
+
+![App Screenshot](https://github.com/riyajkafar/Surge-SE-Intern/blob/main/image.png?raw=true)
+
