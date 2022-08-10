@@ -20,12 +20,12 @@ import {
       return await this.service.findAll();
     }
 
-    @Get(':email')
+    @Get('user/:email')
     async findOne(@Param('email') email: string){
       return await this.service.findByEmail(email);
     }
   
-    @Get(':id')
+    @Get('user/:id')
     async find(@Param('id') id: string) {
       return await this.service.findOne(id);
     }
@@ -35,12 +35,12 @@ import {
       return await this.service.createDetails(createUserDto);
     }
   
-    @Put(':id')
+    @Put('user/:id')
     async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
       return await this.service.update(id, updateUserDto);
     }
   
-    @Delete(':id')
+    @Delete('user/:id')
     async delete(@Param('id') id: string) {
       return await this.service.delete(id);
     }

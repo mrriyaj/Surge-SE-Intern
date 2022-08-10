@@ -37,7 +37,7 @@ export class AuthService {
             to:email,
             from:"riyajkafar@zohomail.com",
             subject: 'User account created Successfully',
-            html: '<b>Login Url  : </b> http://127.0.0.1:3000/auth/login'+'<br><b>Email  :  </b>' + email + '<br> <b>password   :  </b>' + password
+            html: '<b>Login Url  : </b> http://127.0.0.1:3000/login'+'<br><b>Email  :  </b>' + email + '<br> <b>password   :  </b>' + password
            });
 
         return this.userService._getUserDetails(newUser), response;
