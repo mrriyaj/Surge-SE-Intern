@@ -1,12 +1,11 @@
-import { Injectable, Req } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/User.schema';
 import { UserDetails } from './user-details.interface';
-import { JwtModule } from '@nestjs/jwt';
-import { request } from 'http';
+
 
 @Injectable()
 export class UserService {
