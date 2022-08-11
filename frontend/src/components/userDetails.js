@@ -103,15 +103,11 @@ export default class UserDetails extends Component {
             </label>
           </div>
         </div>
-
         <div className="d-grid">
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </div>
-        <p className="forgot-password text-right">
-          <a href="/sign-up">Sign Up</a>
-        </p>
       </form>
     );
   }

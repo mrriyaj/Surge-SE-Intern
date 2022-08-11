@@ -7,6 +7,7 @@ import Login from "./components/login_component";
 import SignUp from "./components/signup_component";
 import UserDetails from "./components/userDetails";
 
+
 function App() {
   return (
     <Router>
@@ -17,7 +18,7 @@ function App() {
               <Route exact path="/" element={<Login />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/userDetails" element={<UserDetails />} />
+              <Route path="/userDetails" element={<UserDetails />} />        
             </Routes>
           </div>
         </div>
