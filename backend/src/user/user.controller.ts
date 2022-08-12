@@ -30,7 +30,7 @@ import {
       return await this.service.findOne(id);
     }
   
-    @Post()
+    @Post('/user')
     async create(@Body() createUserDto: CreateUserDto) {
       return await this.service.createDetails(createUserDto);
     }

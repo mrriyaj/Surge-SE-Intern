@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Type } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -6,31 +6,37 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/User.schema';
 import { UserDetails } from './user-details.interface';
 
-
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) { }
+  ) {}
 
   _getUserDetails(user: UserDocument): UserDetails {
     return {
-      id: user.id,
+      _id: user._id,
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email,
       dateOfBarth: user.dateOfBirth,
       mobile: user.mobile,
-      status: user.status,
+      state: user.state,
       password: user.password,
       accountType: user.accountType,
     };
   }
 
-  async create(email: string, hashedPassword: string): Promise<UserDocument> {
+  async create(
+    email: string,
+    hashedPassword: string,
+    accountType: string,
+    state: boolean,
+  ): Promise<UserDocument> {
     const newUser = new this.userModel({
       email,
       password: hashedPassword,
+      accountType,
+      state,
     });
     return newUser.save();
   }
@@ -60,6 +66,4 @@ export class UserService {
   async findByEmail(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email }).exec();
   }
-
 }
-

@@ -10,70 +10,109 @@ import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
-    constructor(private  jwtService: JwtService, private userService: UserService, private mailService: MailerService){}
+  constructor(
+    private jwtService: JwtService,
+    private userService: UserService,
+    private mailService: MailerService,
+  ) {}
 
-    async hashPassword(password: string): Promise<string>{
-        return bcrypt.hash(password,12);
-    }
+  async hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 12);
+  }
 
-    async register(user:Readonly<NewUserDTO>): Promise<UserDetails | null | string>{
-        
-        var password = generate({
-            length: 12,
-            numbers: true
-        })        
-        
-        const { email } = user;
+  async register(
+    user: Readonly<NewUserDTO>,
+  ): Promise<UserDetails | null | string> {
+    var password = generate({
+      length: 12,
+      numbers: true,
+    });
 
-        const existingUser = await this.userService.findByEmail(email);
+    var accountType = 'student';
+    var state = false;
 
-        if (existingUser) return 'Email Alrady Register!'
+    const { email } = user;
 
-        const hashedPassword = await this.hashPassword(password);
+    const existingUser = await this.userService.findByEmail(email);
 
-        const newUser = await this.userService.create(email,hashedPassword);
+    if (existingUser) return 'Email Alrady Register!';
 
-        var response = await this.mailService.sendMail({
-            to:email,
-            from:"riyajkafar@zohomail.com",
-            subject: 'User account created Successfully',
-            html: '<b>Login Url  : </b> http://127.0.0.1:3000/login'+'<br><b>Email  :  </b>' + email + '<br> <b>password   :  </b>' + password
-           });
+    const hashedPassword = await this.hashPassword(password);
 
-        return this.userService._getUserDetails(newUser), response;
-    }
+    const newUser = await this.userService.create(
+      email,
+      hashedPassword,
+      accountType,
+      state,
+    );
 
-    async doesPasswordMatch(password: string, hashedPassword:string):
-    Promise<boolean>{
-        return bcrypt.compare(password, hashedPassword);
-    }
+    var response = await this.mailService.sendMail({
+      to: email,
+      from: 'riyajkafar@zohomail.com',
+      subject: 'User account created Successfully',
+      html:
+        '<b>Login Url  : </b> http://127.0.0.1:3000/login' +
+        '<br><b>Email  :  </b>' +
+        email +
+        '<br> <b>password   :  </b>' +
+        password,
+    });
 
-    async validateUser(email: string, password: string):
-    Promise<UserDetails | null >{
-        const user = await this.userService.findByEmail(email);
-        const doesUserExist = !!user;
+    return this.userService._getUserDetails(newUser), response;
+  }
 
-        if(!doesUserExist) return null;
+  async doesPasswordMatch(
+    password: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return bcrypt.compare(password, hashedPassword);
+  }
 
-        const doesPasswordMatch = await this.doesPasswordMatch(password, user.password)
+  async validateUser(
+    _id: string,
+    email: string,
+    password: string,
+    accountType: string,
+    state: boolean,
+  ): Promise<UserDetails | null> {
+    const user = await this.userService.findByEmail(email);
+    const doesUserExist = !!user;
 
-        if(!doesPasswordMatch) return null;
+    if (!doesUserExist) return null;
 
-        return this.userService._getUserDetails(user);
- 
-    }
+    const doesPasswordMatch = await this.doesPasswordMatch(
+      password,
+      user.password,
+    );
+    var accountType = user.accountType;
+    state = user.state;
+    _id = user._id;
 
-    async login(existingUser: exisitingUserDTO,): Promise<{token: string} | null>{
-        const {email, password} = existingUser;
-        const user = await this.validateUser(email, password);
+    if (!accountType) return null;
+    if (!doesPasswordMatch) return null;
 
-        if(!user) return null;
+    return this.userService._getUserDetails(user);
+  }
 
-        const jwt = await this.jwtService.signAsync({ user });
-        
-        var objJson = JSON.parse(JSON.stringify({ status: "ok", data: jwt }));
-        
-        return objJson;
+  async login(
+    existingUser: exisitingUserDTO,
+  ): Promise<{ token: string } | null> {
+    const { _id, email, password, accountType, state } = existingUser;
 
-    }
+    const user = await this.validateUser(
+      _id,
+      email,
+      password,
+      accountType,
+      state,
+    );
+
+    if (!user) return null;
+
+    const jwt = await this.jwtService.signAsync({ user });
+
+    var objJson = JSON.parse(JSON.stringify({ status: 'ok', data: jwt }));
+
+    return objJson;
+  }
 }

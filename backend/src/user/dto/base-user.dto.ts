@@ -1,11 +1,10 @@
 export class BaseUserDto {
-    id : number
     firstname : string
     lastname : string
     email : string
     dateOfBarth : Date
     mobile : number
-    status : boolean
+    state : boolean
     password : string
     accountType : string
  }
