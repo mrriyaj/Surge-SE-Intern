@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Swal from 'sweetalert2';
+import jwt_decode from "jwt-decode";
 
 class Navbar extends Component { 
+
 render() {
     function logout(){
 
