@@ -35,30 +35,30 @@ export class AuthService {
 
     const existingUser = await this.userService.findByEmail(email);
 
-    if (existingUser) return 'Email Alrady Register!';
+    if (existingUser){ 
+      return JSON.parse(JSON.stringify({ status: 'ok' ,alert: 'Email Alrady Register!' }))
+    
+    };
 
     const hashedPassword = await this.hashPassword(password);
 
-    const newUser = await this.userService.create(
+    await this.userService.create(
       email,
       hashedPassword,
       accountType,
       state,
     );
 
-    var response = await this.mailService.sendMail({
+    await this.mailService.sendMail({
       to: email,
-      from: 'riyajkafar@zohomail.com',
+      from: 'admin@mrpos.online',
       subject: 'User account created Successfully',
-      html:
-        '<b>Login Url  : </b> http://127.0.0.1:3000/login' +
-        '<br><b>Email  :  </b>' +
-        email +
-        '<br> <b>password   :  </b>' +
-        password,
+      html: '<b>Login Url  : </b> http://127.0.0.1:3000/login' + '<br><b>Email  :  </b>' + email + '<br> <b>password   :  </b>' + password,
     });
 
-    return this.userService._getUserDetails(newUser), response;
+
+    return JSON.parse(JSON.stringify({ status: 'ok' , alert: 'Register Successfully' }));;
+
   }
 
   async doesPasswordMatch(

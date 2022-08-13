@@ -17,12 +17,11 @@ import { NoteModule } from './note/note.module';
     MongooseModule.forRoot('mongodb://localhost:27017/surge'),
     MailerModule.forRoot({
       transport: {
-        service: 'Zoho',
-        host: 'smtp.zoho.com',
+        host: 'mrpos.online',
         port: 465,
         auth: {
-          user: 'riyajkafar@zohomail.com',
-          pass: '$h.aY.f!C#W8UnV',
+          user: 'admin@mrpos.online',
+          pass: 'K8L%18&C?#AZ',
         }
       },
     }),

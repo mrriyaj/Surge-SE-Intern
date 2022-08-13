@@ -5,20 +5,23 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/User.schema';
 import { UserDetails } from './user-details.interface';
+import * as bcrypt from 'bcrypt';
+
+
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   _getUserDetails(user: UserDocument): UserDetails {
     return {
-      _id: user._id,
+      _id:user._id.toString(),
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email,
-      dateOfBarth: user.dateOfBirth,
+      dateOfBirth: user.dateOfBirth,
       mobile: user.mobile,
       state: user.state,
       password: user.password,
@@ -26,12 +29,7 @@ export class UserService {
     };
   }
 
-  async create(
-    email: string,
-    hashedPassword: string,
-    accountType: string,
-    state: boolean,
-  ): Promise<UserDocument> {
+  async create(email: string, hashedPassword: string, accountType: string, state: boolean): Promise<UserDocument> {
     const newUser = new this.userModel({
       email,
       password: hashedPassword,
@@ -55,10 +53,6 @@ export class UserService {
     }).save();
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    return await this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
-  }
-
   async delete(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id).exec();
   }
@@ -66,4 +60,13 @@ export class UserService {
   async findByEmail(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email }).exec();
   }
+
+  async hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 12);
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
+  }
 }
+
