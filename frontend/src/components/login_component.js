@@ -33,15 +33,20 @@ function Login() {
          .then((data) => {
            
            if (data.status === "ok") {
-             alert("login successful");
+            Swal.fire({  
+              title: "Success!",
+              text: "login successful",
+              icon: 'success',
+              confirmButtonText: "OK",
+              type: "success"})
              //var decoded = jwt_decode(data.data);
              if(jwt_decode(data.data).user.state == false){
                window.location.href = "./userDetails";
              }else{
                if(jwt_decode(data.data).user.accountType == "student"){
-                 window.location.href = "./Student";
+                 window.location.href = "./StudentDashboard";
                }else{
-                 window.location.href = "./Student";
+                 window.location.href = "./AdminDashboard";
                }
              }
               window.localStorage.setItem("token", data.data);
@@ -78,7 +83,7 @@ function Login() {
                      
                     <div class="mt-3 mb-2">
                          <div class="d-grid gap-2">
-                                <MDBBtn onClick={login} class="btn text-white  d-letter-spacing shadow-0 fw-light btn-primary" ><span className="h6">Login</span></MDBBtn> 
+                                <MDBBtn onClick={login} class="btn text-white shadow-0 fw-light btn-primary" ><span className="h6">Login</span></MDBBtn> 
                          </div>
                     </div>
                     <center>

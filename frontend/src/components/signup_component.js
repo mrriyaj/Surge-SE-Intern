@@ -25,13 +25,30 @@ function SignUp() {
          .then((res) => res.json())
          .then((data) => {
             console.log(data, "userRegister");
-            if (data.status === "no") {
-              alert(data.alert);
-              window.location.href = "./sign-in";
-            }
-            else if (data.status === "ok") {
-                alert(data.alert);
-                window.location.href = "./sign-in";
+
+            if (data.status === "ok") {
+              Swal.fire({  
+                title: "Success!",
+                text: data.alert,
+                icon: 'success',
+                confirmButtonText: "OK",
+                type: "success"}).then(okay => {
+                    if (okay) {
+                        window.location.href = "/sign-in";
+                    }
+            });
+
+            } else {
+              Swal.fire({  
+                title: "Success!",
+                text: data.alert,
+                icon: 'success',
+                confirmButtonText: "OK",
+                type: "success"}).then(okay => {
+                    if (okay) {
+                        window.location.href = "/sign-in";
+                    }
+            });
               }
 
          });

@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode";
 
 export default class UserDetails extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -21,10 +20,18 @@ export default class UserDetails extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-    handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
-    const { firstname, lastname, dateOfBirth, mobile, password, email, state, id } = this.state;
-
+    const {
+      firstname,
+      lastname,
+      dateOfBirth,
+      mobile,
+      password,
+      email,
+      state,
+      id,
+    } = this.state;
 
     fetch(`http://localhost:8000/users/${id}`, {
       method: "PUT",
@@ -43,13 +50,20 @@ export default class UserDetails extends Component {
         state,
         email,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("done");
-          localStorage.clear();
-          window.location.href = '/'
-      });
+    }).then((res) => res.json());
+
+    Swal.fire({
+      title: "Success!",
+      text: "Update Success",
+      icon: "success",
+      confirmButtonText: "OK",
+      type: "success",
+    }).then((okay) => {
+      if (okay) {
+        localStorage.clear();
+        window.location.href = "/";
+      }
+    });
   }
 
   render() {

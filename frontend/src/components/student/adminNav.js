@@ -4,7 +4,8 @@ import Swal from 'sweetalert2';
 class Navbar extends Component { 
 render() {
     function logout(){
-        
+
+            localStorage.clear();
           	Swal.fire({  
                 title: "Success!",
                 text: "Logout Success",
@@ -12,7 +13,7 @@ render() {
                 confirmButtonText: "OK",
                 type: "success"}).then(okay => {
                     if (okay) {
-                        window.location.href = "/Login";
+                        window.location.href = "/sign-in";
                     }
             });
     }
@@ -22,7 +23,7 @@ return (
   <div>
       <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bgTopNav fixed-top">
-                <a class="navbar-brand h1 fw-bold" style={{fontSize:'25px', textAlign:'center'}} href="Admin"><span className="text-black">Surge Global</span></a>
+                <a class="navbar-brand h1 fw-bold" style={{fontSize:'25px', textAlign:'center'}}><span className="text-black">Surge Global</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -47,7 +48,7 @@ return (
         <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list" style={{paddingBottom:'40%'}}>
                 <nav class="navbar navbar-expand-lg navbar-light shadow-0">
-                    <a class="d-xl-none d-lg-none" href="Admin">Dashboard</a>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>

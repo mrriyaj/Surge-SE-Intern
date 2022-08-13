@@ -36,7 +36,7 @@ export class AuthService {
     const existingUser = await this.userService.findByEmail(email);
 
     if (existingUser){ 
-      return JSON.parse(JSON.stringify({ status: 'ok' ,alert: 'Email Alrady Register!' }))
+      return JSON.parse(JSON.stringify({ status: 'no' ,alert: 'Email Alrady Register!' }))
     
     };
 
