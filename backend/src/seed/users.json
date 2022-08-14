@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "62f7c47fa2f0ec5be4c59716"
+  },
+  "email": "admin@gmail.com",
+  "password": "$2b$10$C64d4.mXuqJaESpkliJ2n.WYKro6amJplEoCdisevJSC2OIiDFlPS",
+  "accountType": "admin",
+  "status": true,
+  "phone": "0773934001",
+  "firstName": "Riyaj",
+  "lastName": "Kafardeen",
+  "dateOfBirth": {
+    "$date": {
+      "$numberLong": "1660294952461"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62f7a92e99d0fbf52ce94199"
+  },
+  "email": "student@gmail.com",
+  "password": "$2b$10$Gj9dzs85Qw1qtvPDW7qBe.GZn1DyUhOIRriLokco5Xo.r1ZKMYS0u",
+  "accountType": "student",
+  "status": true,
+  "phone": "0773934001",
+  "firstName": "Student",
+  "lastName": "Demo",
+  "dateOfBirth": {
+    "$date": {
+      "$numberLong": "1660294952461"
+    }
+  },
+  "__v": 0
+}]

@@ -3,6 +3,13 @@ import Swal from 'sweetalert2';
 import jwt_decode from "jwt-decode";
 
 class Navbar extends Component { 
+    constructor(props) {
+        super(props);
+        this.state = {
+          email: jwt_decode(window.localStorage.getItem("token")).user.email,
+          id: jwt_decode(window.localStorage.getItem("token")).user._id,
+        };
+      }
 
 render() {
     function logout(){
@@ -35,11 +42,9 @@ return (
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-user"></i></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name text-capitalize">ssss</h5>
+                                    <h5 class="mb-0 text-white nav-user-name text-capitalize">{this.state.email}</h5>
                                     <span class="status"></span><span>Available</span>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
                                 <a class="dropdown-item" href="#" onClick={logout}><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>

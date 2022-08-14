@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { MDBBtn, MDBCol, MDBRow, MDBIcon } from "mdb-react-ui-kit";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 function SignUp() {
@@ -71,10 +70,10 @@ function SignUp() {
                 <h6 className="fw-normal text-black-50">Email</h6>
                 <div class="form-group  mt-3">
                   <input
-                    type="email"
+                    label='Email input' id='typeEmail' type='email'
                     name="email"
                     class="form-control"
-                    required
+                    required = "true"
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
